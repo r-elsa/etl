@@ -1,0 +1,101 @@
+﻿ID,SEQUENCE,pname,DESCRIPTION,ICONURL,STATUSCATEGORY
+1,1,Open,The issue is open and ready for the assignee to start work on it.,/images/icons/statuses/open.png,2
+10001,8,Pending External,,/images/icons/status_generic.gif,4
+10014,21,Test,This status is managed internally by JIRA Software,/images/icons/subtask.gif,4
+10015,22,To be verified,NULL,/images/icons/statuses/generic.png,4
+10016,23,Done,NULL,/images/icons/statuses/closed.png,3
+10017,24,To Do,,/images/icons/statuses/open.png,2
+10018,25,Pending,,/images/icons/statuses/generic.png,4
+10020,27,Approved,NULL,/images/icons/statuses/generic.png,3
+10021,28,Rejected,NULL,/images/icons/statuses/generic.png,3
+10121,30,Screening,NULL,/images/icons/statuses/generic.png,4
+10122,31,Schedule 1st interview,NULL,/images/icons/statuses/generic.png,4
+10123,32,1st interview,NULL,/images/icons/statuses/generic.png,4
+10124,33,Schedule 2nd interview,NULL,/images/icons/statuses/generic.png,4
+10125,34,2nd interview,NULL,/images/icons/statuses/generic.png,4
+10126,35,Offering,NULL,/images/icons/statuses/generic.png,4
+10220,36,3rd Interview,NULL,/images/icons/statuses/generic.png,4
+10221,37,Schedule 3rd interview,NULL,/images/icons/statuses/generic.png,4
+10320,38,Interview,NULL,/images/icons/statuses/generic.png,4
+10420,39,Boarding,NULL,/images/icons/statuses/generic.png,4
+10421,40,Working,NULL,/images/icons/statuses/generic.png,4
+10422,41,Departing,NULL,/images/icons/statuses/generic.png,4
+10423,42,Technical and DISC Test,NULL,/images/icons/statuses/generic.png,4
+10424,43,Final Interview,NULL,/images/icons/statuses/generic.png,4
+10425,44,Schedule Final Interview,NULL,/images/icons/statuses/generic.png,4
+10426,45,Hired,NULL,/images/icons/statuses/generic.png,4
+10427,46,Joined,NULL,/images/icons/statuses/generic.png,3
+10520,47,Cancelled,NULL,/images/icons/status_generic.gif,3
+10521,48,Lost,NULL,/images/icons/status_generic.gif,3
+10522,49,Reviewed,NULL,/images/icons/status_generic.gif,4
+10523,50,Submitted,NULL,/images/icons/status_generic.gif,4
+10620,57,New,NULL,/images/icons/statuses/generic.png,2
+10622,59,Finalized,NULL,/images/icons/statuses/generic.png,3
+10623,60,Archived,NULL,/images/icons/statuses/generic.png,3
+10720,61,Ready,NULL,/images/icons/statuses/generic.png,2
+10722,63,Sent,NULL,/images/icons/statuses/generic.png,4
+10723,64,Received,NULL,/images/icons/statuses/generic.png,4
+10724,65,Completed,NULL,/images/icons/statuses/generic.png,3
+10725,66,Accepted,NULL,/images/icons/statuses/generic.png,4
+10920,71,Asset Disposed,NULL,/images/icons/status_generic.gif,3
+10921,72,Deployed,NULL,/images/icons/status_generic.gif,4
+10922,73,Enter Item Details,NULL,/images/icons/status_generic.gif,1
+10923,74,Obsolete - Pending Approval,NULL,/images/icons/status_generic.gif,4
+10924,75,Obsolete - Pending disposal,NULL,/images/icons/status_generic.gif,4
+10925,76,Off-Site Service / Repair,NULL,/images/icons/status_generic.gif,4
+10926,77,Reported Lost / Missing / Stolen,NULL,/images/icons/status_generic.gif,3
+10927,78,Service Request,NULL,/images/icons/status_generic.gif,4
+10928,79,Stock,NULL,/images/icons/status_generic.gif,4
+10929,80,TAG Not in Use,NULL,/images/icons/status_generic.gif,3
+11021,82,Booked,NULL,/images/icons/statuses/generic.png,2
+11027,88,Removed,NULL,/images/icons/statuses/generic.png,3
+11028,89,To be Defined,NULL,/images/icons/statuses/generic.png,4
+11029,90,Acceptance Passed,NULL,/images/icons/statuses/generic.png,3
+11030,91,Verified,NULL,/images/icons/statuses/generic.png,3
+11120,93,Transferring,NULL,/images/icons/statuses/generic.png,4
+11121,94,Updated,NULL,/images/icons/statuses/generic.png,4
+11220,95,Uncheck,NULL,/images/icons/statuses/generic.png,2
+11221,96,Checked,NULL,/images/icons/statuses/generic.png,3
+11222,97,Not Apply,NULL,/images/icons/statuses/generic.png,3
+11420,99,Analyzing,NULL,/images/icons/statuses/generic.png,4
+11421,100,Ready for DEV,NULL,/images/icons/statuses/generic.png,4
+11422,101,Parked,NULL,/images/icons/statuses/generic.png,4
+11720,110,1st Interviewed,NULL,/images/icons/statuses/generic.png,4
+11721,111,2nd Interviewed,NULL,/images/icons/statuses/generic.png,4
+11722,112,3rd Interviewed,NULL,/images/icons/statuses/generic.png,4
+11723,113,Interviewed,NULL,/images/icons/statuses/generic.png,4
+11724,114,In Review,NULL,/images/icons/statuses/generic.png,4
+11725,115,Delivered,NULL,/images/icons/statuses/generic.png,3
+11726,116,Pre-Boarding,NULL,/images/icons/statuses/generic.png,2
+11821,118,Paid,NULL,/images/icons/statuses/generic.png,3
+11822,119,Generating,NULL,/images/icons/statuses/generic.png,4
+11920,120,Generated,NULL,/images/icons/statuses/generic.png,4
+12120,121,Under Review,NULL,/images/icons/status_generic.gif,4
+12121,122,PM Appraising,NULL,/images/icons/statuses/generic.png,4
+12122,123,FM Commenting,NULL,/images/icons/statuses/generic.png,4
+12123,124,Members Acknowledging,NULL,/images/icons/statuses/generic.png,4
+12124,125,Ready for QC Verifying,NULL,/images/icons/statuses/generic.png,4
+12125,126,QC Verifying,NULL,/images/icons/statuses/generic.png,4
+12126,127,Client QA Verifying,NULL,/images/icons/statuses/generic.png,3
+12127,128,Client PO Verifying,NULL,/images/icons/statuses/generic.png,3
+12128,129,Declined,This was auto-generated by Jira Service Desk during workflow import,/images/icons/statuses/generic.png,3
+12129,130,Waiting for support,This was auto-generated by Jira Service Desk during workflow import,/images/icons/status_generic.gif,1
+12130,131,Waiting for customer,This was auto-generated by Jira Service Desk during workflow import,/images/icons/status_generic.gif,1
+12131,132,Canceled,This was auto-generated by Jira Service Desk during workflow import,/images/icons/status_generic.gif,3
+12132,133,Escalated,This was auto-generated by Jira Service Desk during workflow import,/images/icons/status_generic.gif,4
+12133,134,Waiting for approval,This was auto-generated by Jira Service Desk during workflow import,/images/icons/status_generic.gif,2
+12134,135,Work in progress,This was auto-generated by Jira Service Desk during workflow import,/images/icons/status_generic.gif,4
+12135,136,Not Yet Assigned,NULL,/images/icons/statuses/generic.png,2
+12136,137,Onhold,NULL,/images/icons/statuses/generic.png,2
+12137,138,New Prospect,NULL,/images/icons/statuses/generic.png,2
+12138,139,Lead,NULL,/images/icons/statuses/generic.png,4
+12139,140,Qualified,NULL,/images/icons/statuses/generic.png,3
+12140,141,Not Qualified,NULL,/images/icons/statuses/generic.png,3
+12141,142,Opportunity,NULL,/images/icons/statuses/generic.png,2
+12142,143,Contacted,NULL,/images/icons/statuses/generic.png,4
+12143,144,In Negotiation,NULL,/images/icons/statuses/generic.png,4
+12144,145,Won,NULL,/images/icons/statuses/generic.png,3
+3,3,In Progress,This issue is being actively worked on at the moment by the assignee.,/images/icons/statuses/inprogress.png,4
+4,4,Reopened,"This issue was once resolved, but the resolution was deemed incorrect. From here issues are either marked assigned or resolved.",/images/icons/statuses/reopened.png,2
+5,5,Resolved,"A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed.",/images/icons/statuses/generic.png,3
+6,6,Closed,"The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",/images/icons/statuses/closed.png,3

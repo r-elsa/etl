@@ -1,0 +1,54 @@
+﻿ID,SEQUENCE,pname,pstyle,DESCRIPTION,ICONURL,AVATAR
+1,1,Bug,NULL,A problem which impairs or prevents the functions of the product.,/images/icons/issuetypes/bug.png,13403
+10,NULL,Resource Request,NULL,The task that need to be solved by Resource Department,/images/icons/issuetypes/undefined.png,13420
+10000,NULL,Training Request,NULL,This issue type is used for VN Seminar and Training only,/images/icons/issuetypes/undefined.png,13420
+10100,NULL,Approval Request,NULL,Buying Request Approval for IT team only,/images/icons/issuetypes/sales.png,13414
+10300,NULL,Freelancer,NULL,Each freelancer will be presented by this issue type,/secure/viewavatar?size=xsmall&avatarId=13403&avatarType=issuetype,18412
+10301,NULL,Partner,NULL,Each partner will be presented by this issue type,/secure/viewavatar?size=xsmall&avatarId=13403&avatarType=issuetype,18413
+10600,NULL,Quotation,NULL,This issue type is for Estimation and Quotation project,/secure/viewavatar?size=xsmall&avatarId=13400&avatarType=issuetype,13414
+10700,NULL,Lessons Learned,NULL,,/secure/viewavatar?size=xsmall&avatarId=14912&avatarType=issuetype,14912
+10801,NULL,Client Satisfaction Survey,NULL,,/secure/viewavatar?size=xsmall&avatarId=17706&avatarType=issuetype,14929
+10900,NULL,Computer Asset,NULL,,/secure/viewavatar?size=xsmall&avatarId=15103&avatarType=issuetype,15200
+10901,NULL,Misc / Server Asset,NULL,,/secure/viewavatar?size=xsmall&avatarId=13400&avatarType=issuetype,15104
+10902,NULL,Monitor / TV Asset,NULL,,/secure/viewavatar?size=xsmall&avatarId=13400&avatarType=issuetype,15105
+10903,NULL,Software Asset,NULL,,/secure/viewavatar?size=xsmall&avatarId=13400&avatarType=issuetype,15106
+10904,NULL,VC / Phone Asset,NULL,,/secure/viewavatar?size=xsmall&avatarId=13400&avatarType=issuetype,15109
+11,NULL,Internal Bug (Pyco),NULL,,/images/icons/issuetypes/bug.png,13403
+11000,NULL,Contact,NULL,,/secure/viewavatar?size=xsmall&avatarId=13400&avatarType=issuetype,15305
+11001,NULL,Appointment,jira_subtask,Sub Task of Contact,/secure/viewavatar?size=xsmall&avatarId=15306&avatarType=issuetype,15306
+11100,NULL,Handover Plan,NULL,This issue type is used for Resource Management.,/secure/viewavatar?size=xsmall&avatarId=17500&avatarType=issuetype,17502
+11101,NULL,Case Study,NULL,Following project case study creation,/secure/viewavatar?size=xsmall&avatarId=13413&avatarType=issuetype,17713
+11200,NULL,Reporting,NULL,Using to manage production reports,/secure/viewavatar?size=xsmall&avatarId=15703&avatarType=issuetype,15703
+11201,NULL,Weekly Report,jira_subtask,Sub Task of Reporting,NULL,15704
+11300,NULL,QC Weekly Report,jira_subtask,QC Weekly Report,NULL,15902
+11301,NULL,Checklist,NULL,,/secure/viewavatar?size=xsmall&avatarId=13400&avatarType=issuetype,15908
+11400,NULL,Delivery,NULL,Using to capture deliveries of production project,/secure/viewavatar?size=xsmall&avatarId=17712&avatarType=issuetype,17712
+11500,NULL,Sub-Template,jira_subtask,Sub-Issue Type for Templates,/secure/viewavatar?size=xsmall&avatarId=13403&avatarType=issuetype,17500
+11700,NULL,Quotation/CR,jira_subtask,Using to track quotation or CR of production project.,/secure/viewavatar?size=xsmall&avatarId=13416&avatarType=issuetype,13414
+11701,NULL,Employee,NULL,Each employee will be presented by this issue type,/secure/viewavatar?size=xsmall&avatarId=13400&avatarType=issuetype,17812
+11900,NULL,Billing,NULL,Using on Billing Tracking only,/secure/viewavatar?size=xsmall&avatarId=13400&avatarType=issuetype,18737
+12001,NULL,247 Services Task,NULL,,/secure/viewavatar?size=xsmall&avatarId=13400&avatarType=issuetype,13413
+12100,NULL,Quarter PPA,NULL,,/secure/viewavatar?size=xsmall&avatarId=13400&avatarType=issuetype,19320
+12101,NULL,Detailed PPA,jira_subtask,Sub task of Quarter PPA,NULL,19323
+14,NULL,Application Support,NULL,,/secure/viewavatar?size=xsmall&avatarId=17716&avatarType=issuetype,17716
+15,NULL,Question,NULL,,/images/icons/issuetypes/undefined.png,13420
+16,NULL,Risk,NULL,,/secure/viewavatar?size=xsmall&avatarId=13400&avatarType=issuetype,14914
+17,NULL,IT Service Request,NULL,"A request to IT team ",/secure/viewavatar?size=xsmall&avatarId=13413&avatarType=issuetype,17714
+18,NULL,Account Management,NULL,A request to IT team,/images/icons/issuetypes/defect.png,13404
+19,NULL,Hardware Issue,NULL,A request to IT team,/images/icons/issuetypes/defect.png,13404
+2,2,New Feature,NULL,"A new feature of the product, which has yet to be developed.",/images/icons/issuetypes/newfeature.png,13411
+20,NULL,Software Installation,NULL,A request to IT team,/images/icons/issuetypes/defect.png,13404
+21,NULL,Server Management,NULL,A request to IT team,/images/icons/issuetypes/defect.png,13404
+22,NULL,Issue,NULL,,/images/icons/issuetypes/defect.png,13404
+24,NULL,Change Request,NULL,,/images/icons/issuetypes/newfeature.png,13411
+25,NULL,Leave Request,NULL,,/images/icons/issuetypes/delete.png,13408
+28,NULL,Process Request,NULL,,/images/icons/issuetypes/improvement.png,14902
+29,NULL,Performance,NULL,A problem relate to Performance issue of project,/images/icons/issuetypes/health.png,13404
+3,3,Task,NULL,A task that needs to be done.,/secure/viewavatar?size=xsmall&avatarId=13413&avatarType=issuetype,17715
+30,NULL,Requirement Issue,NULL,,/images/icons/issuetypes/requirement.png,13420
+4,4,Improvement,NULL,An improvement or enhancement to an existing feature or task.,/images/icons/issuetypes/improvement.png,13410
+5,0,Sub-task,jira_subtask,The sub-task of the issue,/images/icons/issuetypes/subtask_alternate.png,13416
+6,5,Story,NULL,Created by Jira Software - do not edit or delete. Issue type for a user story.,/secure/viewavatar?size=xsmall&avatarId=17501&avatarType=issuetype,17501
+7,1,Epic,NULL,Created by Jira Software - do not edit or delete. Issue type for a big user story that needs to be broken down.,/secure/viewavatar?size=xsmall&avatarId=13415&avatarType=issuetype,13415
+8,3,Technical task,jira_subtask,Created by GreenHopper - do not edit or delete. Issue type for a technical task.,/secure/viewavatar?size=xsmall&avatarId=13404&avatarType=issuetype,13406
+9,1,Test,NULL,This Issue Type is used to create Zephyr Test within Jira.,/download/resources/com.thed.zephyr.je/images/icons/ico_zephyr_issuetype.png,NULL
