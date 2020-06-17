@@ -1,281 +1,225 @@
-
+import psycopg2
+import psycopg2.extras 
 import csv
-import sqlite3
+import datetime
 
-def create_table():
-    conn = sqlite3.connect('etldb.db')
-    c = conn.cursor()
-    c.execute('CREATE TABLE IF NOT EXISTS issuetype(ufeffID INTEGER, sequence INTEGER, pname TEXT, pstyle TEXT, description TEXT, iconurl TEXT, avatar INTEGER)')
-    c.execute('CREATE TABLE IF NOT EXISTS priority (ufeffID INTEGER, sequence INTEGER, pname TEXT, description TEXT, iconurl TEXT, statuscolor TEXT)')
-    c.execute('CREATE TABLE IF NOT EXISTS issuestatus (ufeffID INTEGER, sequence INTEGER, pname TEXT, description TEXT, iconurl TEXT, statuscategory TEXT)')
-    c.execute('CREATE TABLE IF NOT EXISTS jiraissue (ufeffID INTEGER, pkey INTEGER,project INTEGER,reporter TEXT, assignee TEXT,issuetype INTEGER, summary TEXT,description TEXT,environment TEXT,priority INTEGER, resolution INTEGER, issuestatus INTEGER, created INTEGER, updated INTEGER,duedate INTEGER, resolutiondate INTEGER,votes INTEGER, watches INTEGER, timeoriginalestimate INTEGER, timeestimate INTEGER,timespent INTEGER,workflow_id INTEGER,security INTEGER,fixfor INTEGER,component INTEGER, issuenum INTEGER,creator TEXT,archived TEXT)')
-    c.execute('CREATE TABLE IF NOT EXISTS changegroupchangeitem (id_one INTEGER,issueid INTEGER, author TEXT,created INTEGER,id_two INTEGER,groupid INTEGER,fieldtype TEXT,field TEXT,oldvalue TEXT,oldstring TEXT,newvalue TEXT,newstring TEXT)')
-    print('TABLEs CREATED')
-
-               
-
-class IssueType:
-    def __init__(self,ufeffID,sequence,pname,pstyle,description,iconurl,avatar):
-        self.ufeffID = ufeffID
-        self.sequence = sequence
-        self.pname = pname
-        self.pstyle = pstyle
-        self.description = description
-        self.iconurl = iconurl
-        self.avatar = avatar
-
-    
-    def issuetype_data_entry(self):
-        conn = sqlite3.connect('etldb.db')
-        c = conn.cursor()
-        c.execute("INSERT INTO issuetype (ufeffID, sequence, pname, pstyle, description, iconurl, avatar) VALUES (?, ?, ?, ?, ?, ?, ?)", (self.ufeffID,self.sequence,self.pname,self.pstyle,self.description,self.iconurl,self.avatar))   
-        conn.commit()
-        c.close()
-        conn.close()
+conn = psycopg2.connect("host=localhost dbname=postgres user=postgres password=postgres")
+cur = conn.cursor()
 
 
-class Priority:
-    def __init__(self,ufeffID,sequence,pname,description,iconurl,statuscolor):
-        self.ufeffID = ufeffID
-        self.sequence = sequence
-        self.pname = pname
-        self.description = description
-        self.iconurl = iconurl
-        self.statuscolor = statuscolor
-
-    
-    def priority_data_entry(self):
-        conn = sqlite3.connect('etldb.db')
-        c = conn.cursor()
-        c.execute("INSERT INTO priority (ufeffID, sequence, pname, description, iconurl, statuscolor) VALUES ( ?, ?, ?, ?, ?, ?)", (self.ufeffID,self.sequence,self.pname,self.description,self.iconurl,self.statuscolor))   
-        conn.commit()
-        c.close()
-        conn.close()
-    
-
-class IssueStatus:
-    def __init__(self,ufeffID,sequence,pname,description,iconurl,statuscategory):
-        self.ufeffID = ufeffID
-        self.sequence = sequence
-        self.pname = pname
-        self.description = description
-        self.iconurl = iconurl
-        self.statuscategory = statuscategory
-
-    
-    def issuestatus_data_entry(self):
-        conn = sqlite3.connect('etldb.db')
-        c = conn.cursor()
-        c.execute("INSERT INTO issuestatus (ufeffID, sequence, pname, description, iconurl, statuscategory) VALUES ( ?, ?, ?, ?, ?, ?)", (self.ufeffID,self.sequence,self.pname,self.description,self.iconurl,self.statuscategory))   
-        conn.commit()
-        c.close()
-        conn.close()
-
-
-class JiraIssue:
-    def __init__(self,ufeffID,pkey,project,reporter, assignee,issuetype, summary,description,environment,priority, resolution, issuestatus, created, updated,duedate, resolutiondate,votes, watches, timeoriginalestimate, timeestimate,timespent,workflow_id,security,fixfor,component, issuenum,creator,archived):       
-        self.ufeffID = ufeffID
-        self.pkey = pkey
-        self.project = project
-        self.reporter = reporter
-        self.assignee = assignee
-        self.issuetype = issuetype
-        self.summary = summary
-        self.description = description
-        self.environment = environment
-        self.priority = priority
-        self.resolution = resolution
-        self.issuestatus = issuestatus
-        self.created = created
-        self.updated = updated
-        self.duedate = duedate
-        self.resolutiondate = resolutiondate
-        self.votes = votes
-        self.watches = watches
-        self.timeoriginalestimate = timeoriginalestimate
-        self.timeestimate = timeestimate
-        self.timespent = timespent
-        self.workflow_id = workflow_id
-        self.security = security
-        self.fixfor = fixfor
-        self.component = component
-        self.issuenum = issuenum
-        self.creator = creator
-        self.archived = archived
-
-   
-    def jiraissue_data_entry(self):
-        conn = sqlite3.connect('etldb.db')
-        c = conn.cursor()
-        c.execute("INSERT INTO jiraissue (ufeffID, pkey, project, reporter, assignee, issuetype, summary, description,environment,priority, resolution, issuestatus, created, updated,duedate, resolutiondate,votes, watches, timeoriginalestimate, timeestimate,timespent,workflow_id,security,fixfor,component, issuenum,creator,archived) VALUES ( ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (self.ufeffID, self.pkey, self.project, self.reporter, self.assignee, self.issuetype, self.summary,self.description,self.environment,self.priority, self.resolution, self.issuestatus, self.created, self.updated,self.duedate, self.resolutiondate,self.votes, self.watches, self.timeoriginalestimate, self.timeestimate,self.timespent,self.workflow_id,self.security,self.fixfor,self.component, self.issuenum,self.creator,self.archived))   
-        conn.commit()
-        c.close()
-        conn.close()
-
-
-class ChangeGroupChangeItem:
-    def __init__(self,id_one,issueid, author,created,id_two,groupid,fieldtype,field,oldvalue,oldstring,newvalue,newstring ):
-        self.id_one = id_one
-        self.issueid = issueid
-        self.author = author
-        self.created = created 
-        self.id_two = id_two
-        self.groupid = groupid
-        self.fieldtype = fieldtype
-        self.field = field
-        self.oldvalue = oldvalue
-        self.oldstring = oldstring
-        self.newvalue = newvalue
-        self.newstring = newstring
-
-    
-    def changegroup_changeitem_data_entry(self):
-        conn = sqlite3.connect('etldb.db')
-        c = conn.cursor()
-        c.execute("INSERT INTO changegroupchangeitem (id_one,issueid, author,created,id_two,groupid,fieldtype,field,oldvalue,oldstring,newvalue,newstring) VALUES ( ?, ?, ?, ?, ?, ?,?,?,?,?,?,?)", (self.id_one,self.issueid, self.author,self.created,self.id_two,self.groupid,self.fieldtype,self.field,self.oldvalue,self.oldstring,self.newvalue,self.newstring))   
-        conn.commit()
-        c.close()
-        conn.close()
-
-
-
-
+## CREATE TABLES
+def create_tables():  
+    cur.execute(""" CREATE TABLE IF NOT EXISTS i_type(ufeffID integer, sequence text, pname text, pstyle text, description text, iconurl text, avatar integer, id serial PRIMARY KEY)""")
+    cur.execute(""" CREATE TABLE IF NOT EXISTS priority (ufeffID integer, sequence text, pname text, description text, iconurl text, statuscolor text, id serial PRIMARY KEY)""")
+    cur.execute(""" CREATE TABLE IF NOT EXISTS i_status (ufeffID integer, sequence integer, pname text, description text, iconurl text, statuscategory text, id serial PRIMARY KEY)""")
+    cur.execute(""" CREATE TABLE IF NOT EXISTS jira_i (ufeffID integer, pkey integer,project integer,reporter text, assignee text,issuetype integer, summary text,description text,environment text,priority integer, resolution integer, issuestatus integer, created bigint, updated bigint, duedate bigint, resolutiondate bigint,votes integer, watches integer, timeoriginalestimate integer, timeestimate integer,timespent integer,workflow_id integer,security integer,fixfor integer,component integer, issuenum integer,creator text,archived text, primary_key serial PRIMARY KEY) """)
+    cur.execute(""" CREATE TABLE IF NOT EXISTS cgci (id_one integer, issueid integer, author text,created bigint, id_two integer,groupid integer,fieldtype text,field text,oldvalue text,oldstring text,newvalue text,newstring text, primary_id serial PRIMARY KEY)""")
+    print('tables done')
+    conn.commit()
  
-def get_input():
 
-    issue_number = input("Issue Number: ")
-    time = input("Time: ")
-    issue_number_data = issue_number_query(issue_number)
-
-    print(f"Created:{issue_number} ")
-    print(f"Closed:{issue_number} ")
-    print(f"Updated: {issue_number}")
-    print(f"Summary:{issue_number} ")
-    print(f"Description:{issue_number} ")
-    print(f"Status:{time}")
-    print(f"Priority: {time}")
-    print(f"Assignee:{time}")
-    print(f"Summary:{time}")
-    print(f"Reporter:{time}")
-
-def issue_number_query(conn,issue_number):
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM changegroupchangeitem WHERE issue_number=?", (issue_number,))
-    rows = cur.fetchall()
-
-    for row in rows:
-        print(row) 
-
-
-if __name__ == '__main__':
-    create_table()
-    """  get_input() """
-    with open('./files/issuetype.csv', 'r') as issuetype:
-        read_issuetype = csv.reader(issuetype, delimiter=',')
-        next(read_issuetype)
-        for row in read_issuetype:
-            row = [x if x !='NULL' else None for x in row]
-            ufeffID =  int(row[0]) if row[0]!= None else None
-            sequence = int(row[1]) if row[1]!= None else None
-            pname = row[2]if row[2]!= None else None
-            pstyle = row[3]if row[3]!= None else None
-            description = row[4]if row[4]!= None else None
-            iconurl = row[5]if row[5]!= None else None
-            avatar=  int(row[6]) if row[6]!= None else None
-            current = IssueType(ufeffID,sequence,pname,pstyle,description,iconurl,avatar) 
-            current.issuetype_data_entry()
+## ISSUETYPE
+def insert_issuestype(): 
+ with open('./files/issuetype.csv', 'r') as f:
+    reader = csv.reader(f)
+    next(reader) 
+    for row in reader:
+        row = [x if x !='NULL' else None for x in row]    
+        cur.execute(
+        "INSERT INTO i_type VALUES (%s, %s, %s, %s, %s, %s, %s)",
+        row    
+    )  
+    print('it done')
+    conn.commit()
     
-    with open('./files/priority.csv') as priority:
-        read_priority = csv.reader(priority, delimiter=',')
-        next(read_priority)
-        for row in read_priority:
-            row = [x if x !='NULL' else None for x in row]
-            ufeffID =  int(row[0]) if row[0]!= None else None
-            sequence = int(row[1]) if row[1]!= None else None
-            pname = row[2]if row[2]!= None else None
-            description = row[3]if row[3]!= None else None
-            iconurl = row[4]if row[4]!= None else None
-            statuscolor=  row[5]if row[5]!= None else None
-            current = Priority(ufeffID,sequence,pname,description,iconurl,statuscolor) 
-            current.priority_data_entry()
-                
-    with open('./files/issuestatus.csv') as issuestatus:
-        read_issuestatus = csv.reader(issuestatus, delimiter=',')
-        next(read_issuestatus)
-        for row in read_issuestatus:
-            row = [x if x !='NULL' else None for x in row]
-            ufeffID =  int(row[0]) if row[0]!= None else None
-            sequence = int(row[1]) if row[1]!= None else None
-            pname = row[2]if row[2]!= None else None
-            description = row[3]if row[3]!= None else None
-            iconurl = row[4] if row[4]!= None else None
-            statuscategory= row[5] if row[5]!= None else None
-            current = IssueStatus(ufeffID,sequence,pname,description,iconurl,statuscategory) 
-            current.issuestatus_data_entry()
+
+## PRIORITY
+def insert_priority(): 
+ with open('./files/priority.csv', 'r') as f:
+    reader = csv.reader(f)
+    next(reader) 
+    for row in reader:
+        row = [x if x !='NULL' else None for x in row]   
+        cur.execute(
+        "INSERT INTO priority VALUES (%s, %s, %s, %s, %s, %s)",
+        row    
+    ) 
+    print('pr done') 
+    conn.commit()
+ 
+### ISSUESTATUS
+def insert_issuestatus(): 
+ with open('./files/issuestatus.csv', 'r') as f:
+    reader = csv.reader(f)
+    next(reader) 
+    for row in reader:
+        row = [x if x !='NULL' else None for x in row]   
+        cur.execute(
+        "INSERT INTO i_type VALUES (%s, %s, %s, %s, %s, %s)",
+        row    
+    )  
+    print('is done')
+    conn.commit()
+
+## JIRAISSUE
+def insert_jiraissue(): 
+ with open('./files/jiraissue.csv', 'r') as f:
+    reader = csv.reader(f)
+    next(reader) 
+    for row in reader:
+        row = [x if x !='NULL' else None for x in row]   
+        cur.execute(
+        "INSERT INTO jira_i VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+        row    
+    )
+    print('ji done') 
+    conn.commit()
+  
+
+## CHANGEGROUP CHANGEITEM
+def insert_changegroup_changeitem(): 
+ with open('./files/changegroup_changeitem.csv', 'r') as f:
+    reader = csv.reader(f)
+    next(reader) 
+    for row in reader:
+        row = [x if x !='NULL' else None for x in row]         
+        cur.execute(
+        "INSERT INTO cgci VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+        row    
+    )  
+    print('cgci done')   
+    conn.commit() 
+
+
+## (TEMPORARY TABLES & UNNEEDED FUNCTIONS)
+
+def timestamp_generator(unixcode): 
+    timestamp = int(unixcode)
+    dt = datetime.datetime.fromtimestamp(int(timestamp)/1000000)  
+    return (dt.strftime("%Y-%m-%d %H:%M:%S"))
+
+def tt_changegroupchangeitem():
+    cur.execute("SELECT primary_id, created from changegroupchangeitemxxx;")
+    data = cur.fetchall()
+    results = []
+    for i in data:  
+        results.append((i[0], str(timestamp_generator(i[1]))))
+
+    for d in results:
+        cur.execute("INSERT into temporarytablex(foreign_key, time_stamp) VALUES (%s, %s)", d)  
+    conn.commit()
+    conn.close()
+
+def update_changegroupchangeitem():
+    cur.execute("alter table changegroupchangeitemxxx add created_time_x timestamp")
+    cur.execute("""update changegroupchangeitemxxx set created_timestamp = temporarytablex.time_stamp 
+    from temporarytablex where temporarytablex.foreign_key = changegroupchangeitemxxx.primary_id;""")
+    conn.commit()
+    conn.close()
+
+def tt_jiraissue():
+    cur.execute("SELECT created, updated from jiraissue;")
+    data = cur.fetchall()
+    res = []
+    for i in data:  
+        res.append((timestamp_generator(i[0]),timestamp_generator(i[1])))
+    for d in res:
+        cur.execute("INSERT into jiraissue_temp(created_time, updated_time ) VALUES (%s, %s)", d)     
+    conn.commit()
+    conn.close()
+
+def update_jiraissue():
+    cur.execute("alter table jiraissuex add created_timestamp timestamp, add updated_timestamp timestamp")
+    cur.execute("""update jiraissuex 
+                set (created_timestamp, updated_timestamp) = (jiraissue_temp.created_time,jiraissue_temp.updated_time) 
+                from jiraissue_temp 
+                where jiraissue_temp.foreign_key = jiraissuex.primary_key;""")
+    conn.commit()
+    conn.close()
+
+
+
+### QUERY DB
+def querydb(issuenumber,time_stamp):
+
+    ## QUERY ISSUES
+    db_query_jiraissues = """select * 
+                    from jira_i 
+                    where ufeffID = %s and issuetype = 1 and created <= %s;    
+                    """
+ 
+    cur.execute(db_query_jiraissues, (issuenumber, time_stamp)) 
+    
+    res = cur.fetchall()
+    if len(res) == 0:
+        print('No issues with issuetype = "bug"')
+        exit
+    for row in res:
+        reporter = row[3]
+        assignee = row[4]
+        summary = row[6]
+        description = row[7]
+        priority = row[9]
+        status = row[11]
+        created = row[12]
+        closed =row[14]
+
+    ### QUERY LOGS       
+    db_query_logs = """select * 
+                    from cgci 
+                    where issueid = %s and created <= %s
+                    order by issueid, created desc
+                    """
+ 
+    cur.execute(db_query_logs, (issuenumber,time_stamp))  
+
+    logs = cur.fetchall()
+    if len(logs) == 0:
+        print('No issues with issuetype = "bug"')
+    
+    updated = []
+    for row in logs: 
+        updated.append(row[3])
         
+    conn.commit()
+    conn.close()
+   
+    return (created, closed,updated, summary, description, status, priority, assignee, reporter)
+    
 
+    
 
-    with open('./files/jiraissue.csv') as jiraissue:
-        read_jiraissue = csv.reader(jiraissue, delimiter=',')
-        next(read_jiraissue)
-        for row in read_jiraissue:
-            issuetype = int(row[5]) if row[5]!= None else None
-            if issuetype == 1:
-                print('yes')
-                row = [x if x !='NULL' else None for x in row]
-                ufeffID =  int(row[0]) if row[0]!= None else None
-                pkey = int(row[1]) if row[1]!= None else None
-                project = int(row[2]) if row[2]!= None else None
-                reporter =row[3]if row[3]!= None else None
-                assignee =row[4]if row[4]!= None else None
-                issuetype = int(row[5]) if row[5]!= None else None
-                summary =row[6] if row[6]!= None else None
-                description =row[7]if row[7]!= None else None
-                environment =row[8]if row[8]!= None else None
-                priority = int(row[9]) if row[9]!= None else None
-                resolution = int(row[10]) if row[10]!= None else None
-                issuestatus = int(row[11]) if row[11]!= None else None
-                created = int(row[12]) if row[12]!= None else None
-                updated = int(row[13]) if row[13]!= None else None
-                duedate = int(row[14]) if row[14]!= None else None
-                resolutiondate = int(row[15]) if row[15]!= None else None
-                votes = int(row[16]) if row[16]!= None else None
-                watches = int(row[17]) if row[17]!= None else None
-                timeoriginalestimate = int(row[18]) if row[18]!= None else None
-                timeestimate = int(row[19]) if row[19]!= None else None
-                timespent = int(row[20]) if row[20]!= None else None
-                workflow_id = int(row[21]) if row[21]!= None else None
-                security = int(row[22]) if row[22]!= None else None
-                fixfor = int(row[23]) if row[23]!= None else None
-                component = int(row[24]) if row[24]!= None else None
-                issuenum = int(row[25]) if row[25]!= None else None
-                creator =row[26]if row[26]!= None else None
-                archived =row[27]if row[27]!= None else None
-                current = JiraIssue(ufeffID,pkey,project,reporter, assignee,issuetype, summary,description,environment,priority, resolution, issuestatus, created, updated,duedate, resolutiondate,votes, watches, timeoriginalestimate, timeestimate,timespent,workflow_id,security,fixfor,component, issuenum,creator,archived) 
-                current.jiraissue_data_entry()
+## INPUTFUNCTION
+   
+def get_input():
+    issue_number = int(input("Issue Number: "))
+    time = int(input("Time: "))
+    res = querydb(issue_number, time)
+    created, closed, updated, summary, description, status, priority, assignee, reporter = res
+    
+    print(f"Created:{created} ")
+    print(f"Closed:{closed} ")
+    print(f"Updated: {updated}")
+    print(f"Summary:{summary} ")
+    print(f"{description} ")
+    print(f"Status:{status}")
+    print(f"Priority: {priority}")
+    print(f"Assignee:{assignee}")
+    print(f"Reporter:{reporter}")   
+    
+def source_input():
+    create_tables()    
+    insert_issuestype() 
+    insert_priority() 
+    insert_issuestatus() 
+    insert_jiraissue()   
+    insert_changegroup_changeitem() 
+  
+  
 
-            else:
-                pass 
+def init():
+    """ source_input() """
+    get_input() 
 
-    with open('./files/changegroup_changeitem.csv') as changegroup_changeitem:
-            read_changegroup_changeitem = csv.reader(changegroup_changeitem, delimiter=',')
-            next(read_changegroup_changeitem)
-            for row in read_changegroup_changeitem:
-                row = [x if x !='NULL' else None for x in row]
-                id_one = int(row[0]) if row[0]!= None else None
-                issueid = int(row[1]) if row[1]!= None else None
-                author =row[2]if row[2]!= None else None
-                created = int(row[3]) if row[3]!= None else None
-                id_two= int(row[4]) if row[4]!= None else None
-                groupid = int(row[5]) if row[5]!= None else None
-                fieldtype = row[6]if row[6]!= None else None
-                field = row[7]if row[7]!= None else None
-                oldvalue = row[8] if row[8]!= None else None
-                oldstring = row[9]if row[9]!= None else None
-                newvalue = row[10]if row[10]!= None else None
-                newstring = row[11] if row[11]!= None else None
-                current = ChangeGroupChangeItem(id_one,issueid, author,created,id_two,groupid,fieldtype,field,oldvalue,oldstring,newvalue,newstring) 
-                current.changegroup_changeitem_data_entry() 
-
-
-     
+init()
+  
