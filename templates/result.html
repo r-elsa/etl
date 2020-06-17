@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETL result</title>
+</head>
+<body>
+
+    <h1> State of issue {{ issuenumber }} at {{ timestamp}}</h1>
+
+    <div>
+      <p>Created: {{ created }}</p>
+    </div>
+    <div>
+        <p>Closed: {{ closed }}</p>
+      </div>
+     
+      <div>
+        <p>Updated: {{ updated }}</p>
+      </div>
+      <div>
+        <p>Summary:{{ summary }}</p>
+      </div>
+      <div>
+        <p>Description:{{ description }}</p>
+      </div>
+      <div>
+        <p>Status: {{ status }}</p>
+      </div>
+      <div>
+        <p>Priority: {{ priority }}</p>
+      </div>
+      <div>
+        <p>Assignee: {{ assignee }}</p>
+      </div>
+      <div>
+        <p>Reporter: {{ reporter }}</p>
+      </div>
+    
+</body>
+</html>
