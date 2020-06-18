@@ -4,11 +4,17 @@ import psycopg2
 import psycopg2.extras 
 import csv
 import datetime
+import os
 
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
 
+if os.environ.get('ENV') == 'production':
+    app.config.from_object('config.ProductionConfig')
+
+else:
+    app.config.from_object('config.DevelopmentConfig')
 
 conn = psycopg2.connect("host=localhost dbname=postgres user=postgres password=postgres port=5432")
 cur = conn.cursor()

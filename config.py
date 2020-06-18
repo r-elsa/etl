@@ -1,12 +1,14 @@
-class Config(object):
-    DEBUG = False
+import os
+
+class Config():
     TESTING = False
+    SQLALCHEMY_DATABASE_URI = 'postgres://localhost/flask-heroku'
 
 class ProductionConfig(Config):
-    pass
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 class DevelopmentConfig(Config):
-    DEBUG = True
+    pass
 
 class TestingConfig(Config):
     TESTING = True
