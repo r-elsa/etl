@@ -7,17 +7,19 @@ import datetime
 import os
 
 
+
 app = Flask(__name__)
 
 if os.environ.get('ENV') == 'production':
     app.config['DEBUG']= False
-    app.config['SQLALCHEMY_DATABASE_URI']= os.environ.get('DATABASE_URL')
+    conn = psycopg2.connect(os.environ['DATABASE_URL'], sslmode='require')
 
 else:
+    conn = psycopg2.connect("host=localhost dbname=postgres user=postgres password=postgres port=5432")
     app.config['DEBUG']= True
-    app.config.from_object('config.DevelopmentConfig')
+   
 
-conn = psycopg2.connect("host=localhost dbname=postgres user=postgres password=postgres port=5432")
+
 cur = conn.cursor()
 
 
