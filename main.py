@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
 
 
-conn = psycopg2.connect("host=localhost dbname=postgres user=postgres password=postgres")
+conn = psycopg2.connect("host=localhost dbname=postgres user=postgres password=postgres port=5432")
 cur = conn.cursor()
 
 
@@ -250,12 +250,13 @@ def source_input():
   
   
 def init():
-    """ source_input() """
-    """ get_input()  """
+    source_input()
+    get_input() 
 
-""" init() """
+
+""" init()  """
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
+    app.run()
 
   
