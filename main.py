@@ -162,76 +162,82 @@ def querydb(issuenumber,time_stamp):
  
     cur.execute(db_query_jiraissues, (issuenumber, time_stamp)) 
     
+    # and issuetype = 1
     res = cur.fetchall()
     if len(res) == 0:
-        print('No issues with issuetype = "bug"')
-        exit
-    for row in res:
-        reporter = row[3]
-        assignee = row[4]
-        summary = row[6]
-        description = row[7]
-        pri = row[9]
-        priority = int(pri)
-        stat = row[11]
-        status = int(stat)
-        created = row[12]
-        closed =row[14]
-
-
-    ### QUERY LOGS       
-    db_query_logs = """select * 
-                    from cgci 
-                    where issueid = %s and created <= %s
-                    order by issueid, created desc
-                    """
- 
-    cur.execute(db_query_logs, (issuenumber,time_stamp))  
-
-    logs = cur.fetchall()
-    if len(logs) == 0:
-        print('No logs of issue')
-        exit
+        res = (issuenumber,time_stamp, f"No issues found with issue id {issuenumber} that would be of type 'bug' and created before {time_stamp}")
     
-    updated = []
-    for row in logs: 
-        updated.append(row[3])
+    elif len(res) != 0:
+        for row in res:
+            reporter = row[3]
+            assignee = row[4]
+            summary = row[6]
+            description = row[7]
+            pri = row[9]
+            priority = int(pri)
+            stat = row[11]
+            status = int(stat)
+            created = row[12]
+            closed =row[14]
+
+
+        ### QUERY LOGS       
+        db_query_logs = """select * 
+                        from cgci 
+                        where issueid = %s and created <= %s
+                        order by issueid, created desc
+                        """
+    
+        cur.execute(db_query_logs, (issuenumber,time_stamp))  
+
+        logs = cur.fetchall()
         
-    conn.commit()
-    
-
-    ### QUERY STATUS
-    db_query_issuestatus = """select sequence, pname
-                    from i_status 
-                    where sequence = %s ;    
-                    """
-
-    cur.execute(db_query_issuestatus, (status,)) 
-    
-    res_status = cur.fetchone()
-    for row in res_status:
-        status_typed = row
+        updated=[]
+        if len(logs) == 0:
+            updated.append("Issue is not updated.")
+            
+        else:
      
+            for row in logs: 
+                updated.append(row[3])
+            
+        conn.commit()
         
-    conn.commit()
+
+        ### QUERY STATUS
+        db_query_issuestatus = """select sequence, pname
+                        from i_status 
+                        where sequence = %s ;    
+                        """
+
+        cur.execute(db_query_issuestatus, (status,)) 
+        
+        res_status = cur.fetchone()
+        for row in res_status:
+            status_typed = row
+        
+            
+        conn.commit()
 
 
-    ## QUERY PRIORITY
+        ## QUERY PRIORITY
 
-    db_query_priority = """select sequence, pname
-                    from priority 
-                    where sequence = %s ;    
-                    """
+        db_query_priority = """select sequence, pname
+                        from priority 
+                        where sequence = %s ;    
+                        """
 
-    cur.execute(db_query_priority, (priority,)) 
+        cur.execute(db_query_priority, (priority,)) 
+        
+        res_priority = cur.fetchone()
+        for row in res_priority:
+            priority = row
+            
+        res = (created, closed,updated, summary, description, status_typed, priority, assignee, reporter)
+        conn.commit()
+
     
-    res_priority = cur.fetchone()
-    for row in res_priority:
-        priority = row
-          
-    conn.commit()
-
-    return (created, closed,updated, summary, description, status_typed, priority, assignee, reporter)
+    return res
     
 
 
@@ -246,9 +252,16 @@ def get_input():
     issue_number = int(request.form['issueid'])
     time_stamp = int(request.form['timestamp'])
     res = querydb(issue_number, time_stamp)
-    created, closed, updated, summary, description, status, priority, assignee, reporter = res 
-    return render_template("result.html", issuenumber = issue_number, timestamp= time_stamp,created= created, closed=closed,updated=updated,summary=summary,description=description,status=status,priority=priority,assignee=assignee,reporter=reporter);   
-    
+    if len(res) == 9:
+        created, closed, updated, summary, description, status, priority, assignee, reporter = res 
+        final = render_template("result.html", issuenumber = issue_number, timestamp= time_stamp,created= created, closed=closed,updated=updated,summary=summary,description=description,status=status,priority=priority,assignee=assignee,reporter=reporter);   
+    else:
+        issue_number,time_stamp,errorcode = res
+        final = render_template("resultnotfound.html", issuenumber = issue_number, timestamp= time_stamp, errorcode = errorcode);  
+
+    return final 
+
+
 def source_input():
     create_tables()    
     insert_issuestype() 
