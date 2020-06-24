@@ -154,87 +154,94 @@ def update_jiraissue():
 ### QUERY DB
 def querydb(issuenumber,time_stamp):
 
-    ## QUERY ISSUES
-    db_query_jiraissues = """select * 
-                    from jira_i 
-                    where ufeffID = %s and issuetype = 1 and created <= %s;    
-                    """
- 
-    cur.execute(db_query_jiraissues, (issuenumber, time_stamp)) 
-    
-    # and issuetype = 1
-    res = cur.fetchall()
-    if len(res) == 0:
-        res = (issuenumber,time_stamp, f"No issues found with issue id {issuenumber} that would be of type 'bug' and created before {time_stamp}")
-    
-    elif len(res) != 0:
-        for row in res:
-            reporter = row[3]
-            assignee = row[4]
-            summary = row[6]
-            description = row[7]
-            pri = row[9]
-            priority = int(pri)
-            stat = row[11]
-            status = int(stat)
-            created = row[12]
-            closed =row[14]
-
-
-        ### QUERY LOGS       
-        db_query_logs = """select * 
-                        from cgci 
-                        where issueid = %s and created <= %s
-                        order by issueid, created desc
+    if len(issuenumber) != 6 or issuenumber.isdigit() is False:
+        res = (issuenumber,time_stamp, f"Issuenumber should consist of 6 digits")
+    elif len(time_stamp) != 15 or time_stamp.isdigit() is False:
+        res = (issuenumber,time_stamp, f"Timestamp should consist of 15 digits")
+    else:
+        ## QUERY ISSUES
+        issuenumber = int(issuenumber)
+        time_stamp = int(time_stamp)
+        db_query_jiraissues = """select * 
+                        from jira_i 
+                        where ufeffID = %s and issuetype = 1 and created <= %s;    
                         """
     
-        cur.execute(db_query_logs, (issuenumber,time_stamp))  
-
-        logs = cur.fetchall()
+        cur.execute(db_query_jiraissues, (issuenumber, time_stamp)) 
         
-        updated=[]
-        if len(logs) == 0:
-            updated.append("Issue is not updated.")
+        # and issuetype = 1
+        res = cur.fetchall()
+        if len(res) == 0:
+            res = (issuenumber,time_stamp, f"No issues found with issue id {issuenumber} that would be of type 'bug' and created before {time_stamp}")
+        
+        elif len(res) != 0:
+            for row in res:
+                reporter = row[3]
+                assignee = row[4]
+                summary = row[6]
+                description = row[7]
+                pri = row[9]
+                priority = int(pri)
+                stat = row[11]
+                status = int(stat)
+                created = row[12]
+                closed =row[14]
+
+
+            ### QUERY LOGS       
+            db_query_logs = """select * 
+                            from cgci 
+                            where issueid = %s and created <= %s
+                            order by issueid, created desc
+                            """
+        
+            cur.execute(db_query_logs, (issuenumber,time_stamp))  
+
+            logs = cur.fetchall()
             
-        else:
-     
-            for row in logs: 
-                updated.append(row[3])
+            updated=[]
+            if len(logs) == 0:
+                updated.append("Issue is not updated.")
+                
+            else:
+        
+                for row in logs: 
+                    updated.append(row[3])
+                
+            conn.commit()
             
-        conn.commit()
-        
 
-        ### QUERY STATUS
-        db_query_issuestatus = """select sequence, pname
-                        from i_status 
-                        where sequence = %s ;    
-                        """
+            ### QUERY STATUS
+            db_query_issuestatus = """select sequence, pname
+                            from i_status 
+                            where sequence = %s ;    
+                            """
 
-        cur.execute(db_query_issuestatus, (status,)) 
-        
-        res_status = cur.fetchone()
-        for row in res_status:
-            status_typed = row
-        
+            cur.execute(db_query_issuestatus, (status,)) 
             
-        conn.commit()
-
-
-        ## QUERY PRIORITY
-
-        db_query_priority = """select sequence, pname
-                        from priority 
-                        where sequence = %s ;    
-                        """
-
-        cur.execute(db_query_priority, (priority,)) 
-        
-        res_priority = cur.fetchone()
-        for row in res_priority:
-            priority = row
+            res_status = cur.fetchone()
+            for row in res_status:
+                status_typed = row
             
-        res = (created, closed,updated, summary, description, status_typed, priority, assignee, reporter)
-        conn.commit()
+                
+            conn.commit()
+
+
+            ## QUERY PRIORITY
+
+            db_query_priority = """select sequence, pname
+                            from priority 
+                            where sequence = %s ;    
+                            """
+
+            cur.execute(db_query_priority, (priority,)) 
+            
+            res_priority = cur.fetchone()
+            for row in res_priority:
+                priority = row
+                
+            res = (created, closed,updated, summary, description, status_typed, priority, assignee, reporter)
+            conn.commit()
 
     
     return res
@@ -249,8 +256,8 @@ def my_form():
 
 @app.route('/', methods=['POST'])
 def get_input():
-    issue_number = int(request.form['issueid'])
-    time_stamp = int(request.form['timestamp'])
+    issue_number = str(request.form['issueid'])
+    time_stamp = str(request.form['timestamp'])
     res = querydb(issue_number, time_stamp)
     if len(res) == 9:
         created, closed, updated, summary, description, status, priority, assignee, reporter = res 
