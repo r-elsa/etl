@@ -169,7 +169,7 @@ def querydb(issuenumber,time_stamp):
     
         cur.execute(db_query_jiraissues, (issuenumber, time_stamp)) 
         
-        # and issuetype = 1
+
         res = cur.fetchall()
         if len(res) == 0:
             res = (issuenumber,time_stamp, f"No issues found with issue id {issuenumber} that would be of type 'bug' and created before {time_stamp}")
